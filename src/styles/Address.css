@@ -1,0 +1,67 @@
+.address-container {
+    width: 90%;
+    margin: 0 auto;
+    height: 100vh;
+    padding: 1rem;
+}
+
+.address-header {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.address-content {
+    display: flex;
+    gap: 1rem;
+}
+
+
+.address-content-item, .address-content-item-add {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid #AFAFAF;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.address-content-item-add{
+    border: 1px dashed #AFAFAF;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.address-content-item-add img {
+    width: 2rem;
+    height: 2rem;
+    background-color: rgb(252 138 6 / 10%);
+    border-radius: 50%;
+}
+
+.address-content-item-name {
+    font-weight: 600;
+}
+
+.address-content-item-address {
+    font-size: 0.8rem;
+}
+
+.address-content-item-phone {
+    font-size: 0.8rem;
+}
+
+.address-content-item-edit {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+}
+
+.address-content-item-edit p {
+    cursor: pointer;
+    color: #FC8A06;
+}

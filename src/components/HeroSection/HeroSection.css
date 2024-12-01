@@ -1,0 +1,55 @@
+.heroSection {
+    background-color: #FBFBFB;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.code-container {
+    position: relative;
+    width: 20rem;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.code-container button {
+    position: absolute;
+    right: 0;
+    background: #FC8A06;
+    width: 10rem;
+    color: #fff;
+    border: none;
+    padding: 1rem ;
+    border-radius: 2rem;
+    font-size: 1rem;
+    border: 1px solid #FC8A06;
+}
+
+.code-container input {
+    width: 15rem;
+    border: none;
+    padding: 1rem 0.5rem;
+    border-radius: 2rem;
+    border: 1px solid #00000066;
+    font-size: 1rem;
+}
+
+.hero-1{
+    width: 40rem;
+    height: 40rem;
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 50;
+}
+
+.hero-2{
+    width: 30rem;
+    height: 30rem;
+    top: 0;
+    right: 0;
+}

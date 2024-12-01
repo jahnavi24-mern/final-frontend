@@ -1,0 +1,48 @@
+.topSection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FAFAFA;
+    border: 1px solid #0000001A;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 0 1rem 1rem 0;
+}
+
+.topSection div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.topSection p{
+    padding-left: 2rem;
+    font-size: 1rem;
+}
+
+.topSection span{
+    color: #FC8A06;
+    text-decoration: underline;
+}
+
+.cart{
+    background-color: #028643;
+    border: 1px solid #0000001A;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    padding: 0.5rem 1rem;
+}
+
+.location a{
+    color: #FC8A06;
+
+}
+
+.cart p{
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+}
