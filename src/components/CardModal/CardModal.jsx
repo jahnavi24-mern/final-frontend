@@ -1,12 +1,14 @@
 import "./CardModal.css";
 import { useState } from "react";
 import { addPaymentMethod, editPaymentMethod, removePaymentMethod } from "../../api/api";
+import { useToast } from "../../context/ToastContext";
 
 const CardModal = ({ card, handleCancel, handleSave }) => {
     const [cardNumber, setCardNumber] = useState(card?.cardNumber || "");
     const [expiryDate, setExpiryDate] = useState(card?.expiryDate || "");
     const [cvv, setCvv] = useState(card?.cvv || "");
     const [nameOnCard, setNameOnCard] = useState(card?.cardHolderName || "");
+    const toast = useToast();
 
     const displayCardNumber = card?.cardNumber ? 
         `xxxx xxxx xxxx ${card.cardNumber.slice(-4)}` : cardNumber;
@@ -17,20 +19,34 @@ const CardModal = ({ card, handleCancel, handleSave }) => {
         const cardData = { cardNumber, expiryDate, cvv, nameOnCard };
 
         try {
+            if (!cardNumber || !expiryDate || !cvv || !nameOnCard) {
+                toast.error('Please fill in all card details');
+                return;
+            }
+
             if (card?._id) {
                 await editPaymentMethod(cardData);
+                toast.success('Card updated successfully');
             } else {
                 await addPaymentMethod(cardData);
+                toast.success('Card added successfully');
             }
             handleSave(cardData);
         } catch (error) {
             console.error('Failed to save card:', error);
+            toast.error(error.message || 'Failed to save card details');
         }
     }
 
-    const handleRemove = (cardId) => {
-        removePaymentMethod(cardId);
-        handleCancel();
+    const handleRemove = async (cardId) => {
+        try {
+            await removePaymentMethod(cardId);
+            toast.success('Card removed successfully');
+            handleCancel();
+        } catch (error) {
+            console.error('Failed to remove card:', error);
+            toast.error('Failed to remove card');
+        }
     }
 
     return (

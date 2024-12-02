@@ -11,27 +11,30 @@ import Address from './pages/Address';
 import Payment from './pages/Payment';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
+import { ToastProvider } from './context/ToastContext';
 
 function App() {
   return (
-    <CartProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <div className="app">
-            <Routes>
-              <Route path="/" element={<Auth />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/product/:id" element={<Product />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/address" element={<Address />} />
-              <Route path="/payment" element={<Payment />} />
-            </Routes>
-            <Footer />
-          </div>
-        </BrowserRouter>
-      </AuthProvider>
-    </CartProvider>
+    <ToastProvider>
+      <CartProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <div className="app">
+              <Routes>
+                <Route path="/" element={<Auth />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/product/:id" element={<Product />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/address" element={<Address />} />
+                <Route path="/payment" element={<Payment />} />
+              </Routes>
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </AuthProvider>
+      </CartProvider>
+    </ToastProvider>
   )
 }
 

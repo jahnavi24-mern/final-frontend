@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react';
 import AddressModal from '../components/AddressModal/AddressModal';
 import { addAddress, getProfile } from '../api/api';
 import "../styles/Address.css";
-
+import { useBackNavigation } from '../utils/utils';
+import { useToast } from '../context/ToastContext';
 const Address = () => {
     const [showAddressModal, setShowAddressModal] = useState(false);
     const [user, setUser] = useState(null);
+
+    const handleBack = useBackNavigation();
+    const toast = useToast();
 
     useEffect(() => {
 
@@ -20,6 +24,7 @@ const Address = () => {
                 }
             })
             .catch(error => {
+                toast.error('Something went wrong!');
                 console.error('Error fetching profile:', error);
                 navigate('/login');
             });
@@ -34,6 +39,7 @@ const Address = () => {
                 setShowAddressModal(false);
             })
             .catch(error => {
+                toast.error('Something went wrong!');
                 console.error('Error adding address:', error);
             });
     }
@@ -50,7 +56,7 @@ const Address = () => {
             <Navbar />
             <div className="address-container">
                 <div className="address-header">
-                    <img src="../arrow-left.svg" alt="arrow" />
+                    <img src="../arrow-left.svg" alt="arrow" onClick={handleBack}/>
                     <p>Your Addresses</p>
                 </div>
 

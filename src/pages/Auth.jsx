@@ -4,6 +4,7 @@ import { signin, signup } from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 
 const beURL = "https://final-backend-oewj.onrender.com/api"
 
@@ -17,16 +18,26 @@ const Auth = () => {
     
     const navigate = useNavigate();
     const { login } = useAuth();
+    const toast = useToast();
 
     useEffect(() => {
-        fetch(`${beURL}/image?name=base-image`)
-            .then(res => res.json())
-            .then(data => {
+        const fetchHomeImage = async () => {
+            try {
+                const response = await fetch(`${beURL}/image?name=base-image`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch home image');
+                }
+                const data = await response.json();
                 if (data.success && data.img.length > 0) {
                     setHomeImage(data.img[0].fileUrl);
                 }
-            })
-            .catch(error => console.error('Error fetching home image:', error));
+            } catch (error) {
+                console.error('Error fetching home image:', error);
+                toast.error('Failed to load home image');
+            }
+        };
+
+        fetchHomeImage();
     }, []);
 
     const toggleForm = () => setIsLogin(!isLogin);
@@ -36,7 +47,6 @@ const Auth = () => {
         try {
             if (isLogin) {
                 const data = await signin({ email, password });
-                
                 if (data.success) {
                     localStorage.setItem('authToken', data.token);
                     await login({
@@ -46,22 +56,20 @@ const Auth = () => {
                     toast.success('Login successful!');
                     navigate('/home');
                 } else {
-                    alert(data.message || 'Login failed');
+                    toast.error(data.message || 'Login failed');
                 }
             } else {
-                
                 const data = await signup({name, phone, email, password});
-                
                 if (data.success) {
                     toast.success('Signup successful!');
                     toggleForm();
                 } else {
-                    alert(data.message || 'Signup failed');
+                    toast.error(data.message || 'Signup failed');
                 }
             }
         } catch (error) {
             console.error('Auth error:', error);
-            alert('An error occurred. Please try again.');
+            toast.error(error.message || 'An error occurred. Please try again.');
         }
     }
 

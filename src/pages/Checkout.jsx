@@ -7,15 +7,31 @@ import { useCart } from '../context/CartContext';
 import { getProfile } from '../api/api';
 import { useState, useEffect } from 'react';
 import "../styles/Checkout.css";
-
+import { useBackNavigation } from '../utils/utils';
+import { useToast } from '../context/ToastContext';
 const Checkout = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
     const { cartItems, totalAmount } = useCart();
     const [profile, setProfile] = useState(null);
+    const handleBack = useBackNavigation();
+    const toast = useToast();
 
     useEffect(() => {
-        getProfile().then(data => setProfile(data));
+        const fetchProfile = async () => {
+            try {
+                const data = await getProfile();
+                if (!data) {
+                    throw new Error('Failed to fetch profile');
+                }
+                setProfile(data);
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+                toast.error('Failed to load profile details');
+            }
+        };
+
+        fetchProfile();
     }, []);
 
     // if (!user) {
@@ -27,6 +43,10 @@ const Checkout = () => {
     }
 
     const navigateToPayment = () => {
+        if (!profile?.user?.addresses?.length) {
+            toast.error('Please add a delivery address first');
+            return;
+        }
         navigate("/payment");
     }
 
@@ -36,7 +56,7 @@ const Checkout = () => {
             <Navbar />
             <div className="checkout-container">
                 <div className="checkout-header">
-                    <img src="../arrow-left.svg" alt="arrow" />
+                    <img src="../arrow-left.svg" alt="arrow" onClick={handleBack}/>
                     <p>Checkout</p>
                 </div>
 

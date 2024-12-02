@@ -4,6 +4,7 @@ import "../styles/Payment.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useBackNavigation } from '../utils/utils';
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -19,6 +20,8 @@ const Payment = () => {
         clearCart();
     }
 
+    const handleBack = useBackNavigation();
+
     return (
         <>
             <TopSection />
@@ -26,7 +29,7 @@ const Payment = () => {
             {!isPaymentComplete ? (
                 <div className="payment-container">
                     <div className="payment-header">
-                        <img src="../arrow-left.svg" alt="arrow-left" />
+                        <img src="../arrow-left.svg" alt="arrow-left" onClick={handleBack}/>
                         <p>Choose and Pay</p>
                     </div>
 
@@ -46,18 +49,16 @@ const Payment = () => {
 
                                 <div className="payment-content-left-cards">
                                     <ul>
-                                        <li>
-                                            <p><i>M</i></p>
-                                            <p>MaestroKard</p>
-                                        </li>
-                                        <li>
-                                            <p><i>P</i></p>
-                                            <p>PayPal</p>
-                                        </li>
-                                        <li>
-                                            <p><i>S</i></p>
-                                            <p>Stripe</p>
-                                        </li>
+                                        {[
+                                            { icon: 'M', name: 'MaestroKard' },
+                                            { icon: 'P', name: 'PayPal' },
+                                            { icon: 'S', name: 'Stripe' }
+                                        ].map((card, index) => (
+                                            <li key={`payment-method-${index}`}>
+                                                <p><i>{card.icon}</i></p>
+                                                <p>{card.name}</p>
+                                            </li>
+                                        ))}
                                     </ul>
                                 </div>
 
@@ -85,13 +86,12 @@ const Payment = () => {
                         <p>Your order is confirmed and on its way. Get set to savor your chosen delights!</p>
                         <div className="confirmation-items">
                             {cartItems.map((item) => (
-                                <div className="confirmation-item">
+                                <div key={item._id} className="confirmation-item">
                                     <p>{item.name}</p>
                                 </div>
                             ))}
                             <button className="home-button" onClick={handleBackToHome}>Back to Home</button>
                         </div>
-                        
                     </div>
                 </div>
             )}

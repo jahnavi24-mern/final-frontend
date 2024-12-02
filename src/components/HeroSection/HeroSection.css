@@ -4,6 +4,11 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    gap: 2rem;
+    padding: 10rem 0 0 3rem;
+    border: 1px solid #00000033;
+    border-radius: 1rem;
+    justify-content: space-between;
 }
 
 .code-container {
@@ -14,6 +19,20 @@
     justify-content: center;
 }
 
+.hero-text h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.hero-text h1 span {
+    font-weight: 600;
+    color: #FC8A06;
+}
+
+.hero-text p {
+    margin-bottom: 0.5rem;
+}
 
 .code-container button {
     position: absolute;
@@ -37,19 +56,167 @@
     font-size: 1rem;
 }
 
+.hero-image {
+    position: relative;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
 .hero-1{
-    width: 40rem;
-    height: 40rem;
+    height: 26rem;
     position: absolute;
-    top: 50%;
-    left: 55%;
-    transform: translate(-50%, -50%);
+    bottom: 0;
+    right: 70%;
     z-index: 50;
 }
 
 .hero-2{
+    height: 22rem;
+    margin-right: 19rem;
+    z-index: 7;
+}
+
+.orange {
+    position: absolute;
+    right: 0;
+    bottom: 0;
     width: 30rem;
     height: 30rem;
+    background: #FC8A06;
+    z-index: 5;
+    border-radius: 15rem 0 1rem 0;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.card-header p {
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 1rem;
+    position: absolute;
+    padding: 0.5rem 1rem;
+    z-index: 20;
+}
+
+.card:nth-child(1) {
+    top: -10%;
+    right: 20%;
+}
+
+.card:nth-child(2) {
+    top: 30%;
+    right: 5%;
+}
+
+.card:nth-child(3) {
+    top: 70%;
+    right: 20%;
+}
+
+.card img {
+    width: 3rem;
+}
+
+.image {
+    width: 100%;
+}
+
+.hero-deals {
+    width: 90%;
+    margin: 2rem auto;
+}
+
+.hero-deals-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.hero-deals-header-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.deals-card-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.offer-discount {
+    background-color: black;
+    color: white;
+    position: absolute;
     top: 0;
-    right: 0;
+    right: 5%;
+    padding: 0.5rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.restaurant-name {
+    font-weight: 400;
+    position: absolute;
+    color: #FC8A06;
+    bottom: 20%;
+    left: 5%;
+}
+
+.offer-name {
+    font-weight: 600;
+    color: white;
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    font-size: 1.5rem;
+}
+
+.hero-deals-body {
+    display: flex;
+    gap: 1rem;
+    z-index: 1;
+    position: relative;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.hero-categories {
+    width: 90%;
+    margin: 2rem auto;
+}
+
+.hero-categories-body {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.category-card-content {
+    background: #F5F5F5;
+    border-radius: 1rem;
+    border: 1px solid #0000001A;
+}
+
+.category-card-content p {
+    margin: 0.5rem 1rem;
+}
+
+.category-card-content p:nth-child(2) {
+    font-weight: 600;
+}
+
+.category-card-content p:nth-child(3) {
+    font-size: 0.8rem;
+    color: #FC8A06;
 }

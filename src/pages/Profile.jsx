@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar/Navbar";
 import { getProfile, editProfile, addPaymentMethod, removePaymentMethod } from "../api/api";
 import { useState, useEffect } from "react";
 import CardModal from "../components/CardModal/CardModal";
+import { useBackNavigation } from "../utils/utils";
 import "../styles/Profile.css";
 
 const Profile = () => {
@@ -10,6 +11,8 @@ const Profile = () => {
     const [edit, setEdit] = useState(false);
     const [editCard, setEditCard] = useState(null);
     const [showCardModal, setShowCardModal] = useState(false);
+
+    const handleBack = useBackNavigation();
 
     useEffect(() => {
         getProfile().then(data => setProfile(data));
@@ -50,7 +53,7 @@ const Profile = () => {
             <Navbar />
             <div className="profile-details-container">
                 <div className="profile-details-header">
-                    <img src="../arrow-left.svg" alt="user" />
+                    <img src="../arrow-left.svg" alt="user" onClick={handleBack}/>
                     <p>My Profile</p>
                 </div>
 

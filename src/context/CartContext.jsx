@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { createCart, viewCart, shareCart, removeItemFromCart, addItemToCart } from '../api/api';
+import { useToast } from './ToastContext';
 
 
 const CartContext = createContext();
@@ -9,13 +10,15 @@ export const CartProvider = ({ children }) => {
     const [totalAmount, setTotalAmount] = useState(0);
     const [cartId, setCartId] = useState(null);
     console.log("cartId", cartItems);
+    const toast = useToast();
 
     const addToCart = async ({product, restaurantId}) => {
         try {
             console.log('Received in addToCart:', { product, restaurantId });
             
             if (!product || !restaurantId) {
-                throw new Error('Invalid product or restaurant ID');
+                toast.error('Invalid product or restaurant');
+                return;
             }
 
             if (!cartId) {
@@ -27,14 +30,23 @@ export const CartProvider = ({ children }) => {
                     }] 
                 });
                 
+                if (!response._id) {
+                    throw new Error('Failed to create cart');
+                }
+
                 setCartId(response._id);
                 setCartItems([{ ...product, quantity: 1 }]);
                 setTotalAmount(product.price);
+                toast.success('Item added to cart');
             } else {
                 const response = await addItemToCart({ 
                     cartId, 
                     productId: product._id,
                 });
+
+                if (!response) {
+                    throw new Error('Failed to add item to cart');
+                }
 
                 setCartItems(prevItems => {
                     const existingItemIndex = prevItems.findIndex(item => item._id === product._id);
@@ -52,16 +64,21 @@ export const CartProvider = ({ children }) => {
                         return [...prevItems, { ...product, quantity: 1 }];
                     }
                 });
+                toast.success('Item added to cart');
             }
         } catch (error) {
             console.error('Error adding to cart:', error);
+            toast.error('Failed to add item to cart');
             throw error;
         }
     };
 
     const removeFromCart = async (productId) => {
         try {
-            if (!cartId) return;
+            if (!cartId) {
+                toast.error('No cart found');
+                return;
+            }
 
             await removeItemFromCart({ cartId, productId });
             setCartItems(prevItems => {
@@ -71,8 +88,10 @@ export const CartProvider = ({ children }) => {
                 }
                 return prevItems.filter(item => item._id !== productId);
             });
+            toast.success('Item removed from cart');
         } catch (error) {
             console.error('Error removing item from cart:', error);
+            toast.error('Failed to remove item from cart');
         }
     };
 
@@ -106,6 +125,9 @@ export const CartProvider = ({ children }) => {
         try {
             if (!cartId) return;
             const { items } = await viewCart(cartId);
+            if (!items) {
+                throw new Error('Failed to load cart items');
+            }
             const transformedItems = items.map(item => ({
                 ...item.product, 
                 quantity: item.quantity,
@@ -116,6 +138,7 @@ export const CartProvider = ({ children }) => {
             setTotalAmount(total);
         } catch (error) {
             console.error('Error loading cart:', error);
+            toast.error('Failed to load cart items');
         }
     };
 
