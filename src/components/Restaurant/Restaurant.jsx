@@ -204,6 +204,14 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
     }
 
     const renderSearchResults = () => {
+        if (!products || !Array.isArray(products)) {
+            return <div>No results found.</div>;
+        }
+
+        if (products.length === 0) {
+            return <div>No results found.</div>;
+        }
+        
         if (searchTerm && products.length > 0) {
             return (
                 <div className="products-item">
