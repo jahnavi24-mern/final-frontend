@@ -1,6 +1,6 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Auth from './pages/Auth';
 import {Footer} from './components/Footer/Footer'
 import Home from './pages/Home';
@@ -9,19 +9,19 @@ import Profile from './pages/Profile';
 import Checkout from './pages/Checkout';
 import Address from './pages/Address';
 import Payment from './pages/Payment';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import { ToastProvider } from './context/ToastContext';
 
 function App() {
   return (
-    <ToastProvider>
-      <CartProvider>
-        <AuthProvider>
-          <BrowserRouter>
+    <AuthProvider>
+      <Router>
+        <ToastProvider>
+          <CartProvider>
             <div className="app">
               <Routes>
-                <Route path="/" element={<Auth />} />
+                <Route path="/" element={<ProtectedRoot />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/profile" element={<Profile />} />
@@ -31,11 +31,21 @@ function App() {
               </Routes>
               <Footer />
             </div>
-          </BrowserRouter>
-        </AuthProvider>
-      </CartProvider>
-    </ToastProvider>
+          </CartProvider>
+        </ToastProvider>
+      </Router>
+    </AuthProvider>
   )
 }
+
+const ProtectedRoot = () => {
+  const { user } = useAuth();
+
+  if (user) {
+    return <Navigate to="/home" replace />;
+  }
+
+  return <Auth />;
+};
 
 export default App;
