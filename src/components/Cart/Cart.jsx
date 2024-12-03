@@ -3,11 +3,15 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { useEffect } from 'react';
 const Cart = ({ isOpen, onClose }) => {
+    const MIN_ORDER_AMOUNT = 20;
     const { id: restaurantId } = useParams();
     const [searchParams] = useSearchParams();
     const shareId = searchParams.get('shareId');
     const navigate = useNavigate();
     const { cartItems, totalAmount, removeFromCart, loadCart, shareCurrentCart } = useCart();
+
+    const isOrderBelowMinimum = totalAmount < MIN_ORDER_AMOUNT;
+    const remainingAmount = MIN_ORDER_AMOUNT - totalAmount;
 
     useEffect(() => {
         if (shareId) {
@@ -18,7 +22,7 @@ const Cart = ({ isOpen, onClose }) => {
     }, [shareId]);
 
     const handleDelete = (itemId) => {
-        removeFromCart(itemId); 
+        removeFromCart(itemId);
     };
 
     const handleCheckout = () => {
@@ -119,9 +123,19 @@ const Cart = ({ isOpen, onClose }) => {
                             <p>Starts at 16:50</p>
                         </div>
                     </div>
-                    <button className="checkout-button" onClick={handleCheckout}>
+                    <button
+                        className="checkout-button"
+                        onClick={handleCheckout}
+                        disabled={isOrderBelowMinimum}
+                    >
                         Checkout
                     </button>
+
+                    {isOrderBelowMinimum && (
+                        <div className="tooltip">
+                            Minimum delivery is ₹{MIN_ORDER_AMOUNT}. You must spend ₹{remainingAmount} more for checkout!
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
