@@ -71,6 +71,8 @@ const Auth = () => {
             console.error('Auth error:', error);
             toast.error(error.message || 'An error occurred. Please try again.');
         }
+        setEmail("");
+        setPassword("");
     }
 
 
