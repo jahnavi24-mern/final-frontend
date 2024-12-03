@@ -1,5 +1,4 @@
 import './TopSection.css';
-import Cart from '../Cart/Cart';
 
 const TopSection = ({ onCartClick }) => {
     return (

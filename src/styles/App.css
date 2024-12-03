@@ -6,6 +6,21 @@
     font-family: "Poppins";
 }
 
+/* body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.app {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+} */
+
 .auth-container {
     display: flex;
     justify-content: center;
@@ -82,5 +97,50 @@ form button{
 .home-image img{
     width: 100%;
     height: 100%;
+}
+
+@media screen and (max-width: 860px) {
+
+    .home-image{
+        display: none;
+    }
+    .auth-container {
+        flex-direction: column-reverse;
+    }
+
+    .auth-card {
+        width: 100vw;
+        padding: 1rem;
+    }
+
+    .home-image {
+        width: 100vw;
+        height: 30vh;
+    }
+
+    .auth-card-body,
+    form {
+        width: 90%;
+    }
+
+    .auth-card h1 {
+        font-size: 1.3rem;
+    }
+
+    .auth-card p {
+        font-size: 0.9rem;
+    }
+
+    .app {
+        padding: 0 0.5rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 675px) {
+    .checkout-route ~ footer,
+    .payment-route ~ footer {
+        display: none !important;
+    }
 }
 

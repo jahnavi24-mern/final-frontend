@@ -136,3 +136,25 @@
     font-weight: 600;
     color: #fff;
 }
+
+@media (max-width: 675px) {
+    .payment-content {
+        flex-direction: column;
+    }
+
+    .payment-content-left-container {
+        width: 100%;
+    }
+
+    .payment-content-right {
+        width: 100%;
+    }
+
+    .order-confirmation-container {
+        height: 75vh;
+    }
+
+    .confirmation-content p {
+        text-align: center;
+    }
+}

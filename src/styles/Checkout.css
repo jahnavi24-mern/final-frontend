@@ -103,3 +103,16 @@
     color: white;
 }
 
+@media (max-width: 675px) {
+    .checkout-content {
+        flex-direction: column;
+    }
+
+    .checkout-content-left {
+        width: 100%;
+    }
+
+    .checkout-content-right {
+        width: 100%;
+    }
+}

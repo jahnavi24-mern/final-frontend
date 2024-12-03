@@ -17,6 +17,7 @@
     justify-content: center;
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
 }
 
 .hero-text h1 {
@@ -145,6 +146,7 @@
 
 .hero-deals-header-nav {
     display: flex;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -219,4 +221,173 @@
 .category-card-content p:nth-child(3) {
     font-size: 0.8rem;
     color: #FC8A06;
+}
+
+.code-container button img {
+    display: none;
+}
+
+.hero-categories h1 {
+    margin-bottom: 1rem;
+}
+
+.hero-categories-body img {
+    border-radius: 1rem 1rem 0 0;
+}
+
+@media screen and (max-width: 1200px) {
+    .hero-1 {
+        display: none;
+    }
+
+    .hero-2 {
+        display: none;
+    }
+
+    .orange {
+        display: none;
+    }
+
+    .card {
+        display: none;
+    }
+
+    .heroSection {
+        display: block;
+        text-align: center;
+        background-color: #03081F;
+        color: #fff;
+        padding: 2rem 0;
+    }
+
+    .code-container {
+        margin: 0 auto;
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .code-container button {
+        position: absolute;
+        width: auto;
+        right: 10%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .code-container button p {
+        display: none;
+    }
+
+    .code-container button img {
+        display: block;
+        rotate: -90deg;
+    }
+
+    .hero-deals {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .hero-deals-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-deals-header-nav {
+        border: 1px solid black;
+        padding: 1rem 2rem;
+        border-radius: 3rem;
+    }
+
+    .hero-deals-header-nav p:not(:first-child) {
+        display: none;
+    }
+
+    .hero-deals-header-nav::after {
+        content: '';
+        display: flex;
+        align-items: center;
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid black;
+        margin-left: 0.5rem;
+        cursor: pointer;
+    }
+
+    .hero-deals-header-nav p:first-child {
+        font-weight: 500;
+    }
+
+
+    .hero-deals-body {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .deals-card-content {
+        min-width: 10rem;
+    }
+
+
+    .deals-card-content p {
+        font-size: 0.8rem;
+    }
+
+    .deals-card-content p:nth-child(2) {
+        font-size: 1rem;
+    }
+
+    .category-card-content{
+        background-color: #03081F;
+        color: #fff;
+    }
+
+    .hero-categories  {
+        width: 100%;
+        padding: 1rem;
+        background-color: #D9D9D980;
+    }
+
+    .hero-categories h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-categories-body{
+        width: 100%;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+
+    .category-card-content p:nth-child(2) {
+        font-size: 0.8rem;
+    }
+
+    .category-card-content p:nth-child(3) {
+        font-size: 0.6rem;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .hero-deals-header h1 {
+        font-size: 1rem;
+    }
+
+    .hero-deals-header-nav {
+        padding: 0.5rem 1rem;
+    }
+
+    .hero-categories h1 {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .category-card-content img {
+        width: 10rem;
+    }
 }

@@ -75,7 +75,7 @@
 .partner-with-us {
     margin-top: 1.5rem;
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     position: relative;
 }
 
@@ -266,4 +266,124 @@
 .company-details-content p:last-child {
     font-size: 1rem;
     font-weight: 500;
+}
+
+@media (max-width: 1294px) {
+    .order-more-section {
+        width: 100%;
+    }
+
+    .order-more-section-content {
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .order-more-section-content-text {
+        order: 1;
+    }
+
+    .order-more-section-content-text-logo {
+        text-align: center;
+    }
+
+    .order-more-section-content-text-logo img{
+        width: 7rem;
+    }
+
+    .order-more-section-content-text-logo span{
+        font-size: 1.7rem;
+    }
+
+    .friends-1 {
+        order: 2;
+        width: 80%;
+    }
+
+    .friends-2 {
+        display: none;
+    }
+
+    .partner-with-us {
+        flex-direction: column;
+    }
+
+    .personalised-instant {
+        position: static;
+        text-align: center;
+        transform: none;
+        background-color: transparent;
+        color: black;
+        width: 100%;
+        margin: 1rem 0;
+        font-size: 1.8rem;
+    }
+
+    .download-app {
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .know-more {
+        background-color: transparent;
+        padding: 0;
+    }
+
+    .know-more-content {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .know-more-content-text-nav {
+        display: none;
+    }
+
+    .know-more-content-2 {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .know-more-content-2-details {
+        background: #03081F;
+        color: #fff;
+        border-radius: 1rem;
+        padding: 2rem;
+        width: auto;
+    }
+
+    .know-more-content-2-details-text {
+        width: auto;
+    }
+
+    .icon-container {
+        flex-direction: column;
+        align-items: center;
+        color: black;
+    }
+
+    .company-details {
+        flex-direction: column;
+    }
+
+    .sign-up {
+       font-size: 0.8rem;
+    }
+
+    .partner-with-us-text-2{
+        font-size: 1.5rem;
+    }
+
+    .partner-with-us-text button {
+        bottom: 15%;
+    }
+
+    .msg {
+        font-size: 0.8rem;
+        left: 5%;
+    }
+
 }

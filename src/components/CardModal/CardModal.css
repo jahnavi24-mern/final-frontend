@@ -74,3 +74,9 @@ form button {
 .card-input-group input {
     width: 70%;
 }
+
+@media (max-width: 675px) {
+    .card-modal-content {
+        width: 90%;
+    }
+}

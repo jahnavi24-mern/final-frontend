@@ -67,3 +67,9 @@ button {
     color: white;
     
 }
+
+@media (max-width: 675px) {
+    .address-content-1 {
+        flex-direction: column;
+    }
+}

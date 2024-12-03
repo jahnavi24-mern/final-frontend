@@ -125,3 +125,13 @@
 .edit-icon {
     cursor: pointer;
 }
+
+@media (max-width: 675px) {
+    .profile-section-details {
+        grid-template-columns: 1fr;
+    }
+
+    .payment-method-cards {
+        flex-direction: column;
+    }
+}

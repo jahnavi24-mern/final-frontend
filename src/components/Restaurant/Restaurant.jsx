@@ -23,11 +23,12 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
     const [image, setImage] = useState("");
     const [error, setError] = useState(null);
     const [sharedCart, setSharedCart] = useState(null);
+    const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
         const shareId = params.get('shareId');
-        
+
         if (shareId) {
             loadCart(shareId);
         }
@@ -46,7 +47,7 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
             setLoading(false);
         }
     };
-    
+
 
     useEffect(() => {
         fetchData(id);
@@ -77,13 +78,28 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
         { day: 'Sunday', hours: '8:00 AM-12:00 AM' },
     ];
 
-    const review = {
+    const review = [{
         name: "St Glx",
         address: "South London",
         rating: 5,
         date: "24th September, 2023",
         review: "The positive aspect was undoubtedly the efficiency of the service. The queue moved quickly, the staff was friendly, and the food was up to the usual McDonald's standard - hot and satisfying."
+    },
+    {
+        name: "John Doe",
+        address: "South London",
+        rating: 5,
+        date: "24th September, 2023",
+        review: "The positive aspect was undoubtedly the efficiency of the service. The queue moved quickly, the staff was friendly, and the food was up to the usual McDonald's standard - hot and satisfying."
+    },
+    {
+        name: "Jane Smith",
+        address: "South London",
+        rating: 5,
+        date: "24th September, 2023",
+        review: "The positive aspect was undoubtedly the efficiency of the service. The queue moved quickly, the staff was friendly, and the food was up to the usual McDonald's standard - hot and satisfying."
     }
+    ]
 
     const defaultLocation = [51.505, -0.09];
 
@@ -97,6 +113,39 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
 
     const handleOrderSuccess = () => {
         clearCart();
+    };
+
+    const handlePrevReview = () => {
+        setCurrentReviewIndex((prevIndex) =>
+            prevIndex === 0 ? review.length - 1 : prevIndex - 1
+        );
+    };
+
+    const handleNextReview = () => {
+        setCurrentReviewIndex((prevIndex) =>
+            prevIndex === review.length - 1 ? 0 : prevIndex + 1
+        );
+    };
+
+    const customerReview = (reviewData) => {
+        return (
+            <div className="customer-review-item">
+                <div className="customer-review-item-header">
+                    <img src="../profile.svg" alt="profile" />
+                    <div className="customer-review-item-header-content">
+                        <p>{reviewData.name}</p>
+                        <p>{reviewData.address}</p>
+                    </div>
+                    <div className="customer-review-item-header-rating">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                            <span key={star}>★</span>
+                        ))}
+                        <p>{reviewData.date}</p>
+                    </div>
+                </div>
+                <p>{reviewData.review}</p>
+            </div>
+        )
     };
 
     useEffect(() => {
@@ -120,29 +169,7 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
                         </div>
                     ))}
                 </div>
-                <p>1,360 reviews</p>
-            </div>
-        )
-    }
-
-    const customerReview = () => {
-        return (
-            <div className="customer-review-item">
-                        <div className="customer-review-item-header">
-                            <img src="../profile.svg" alt="profile" />
-                            <div className="customer-review-item-header-content">
-                                <p>{review.name}</p>
-                                <p>{review.address}</p>
-                            </div>
-                            <div className="customer-review-item-header-rating">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                                <span key={star}>★</span>
-                                ))}
-                                <p>{review.date}</p>
-                        </div>
-                    </div>
-
-                    <p>{review.review}</p>
+                <p className="rating-container-reviews">1,360 reviews</p>
             </div>
         )
     }
@@ -207,8 +234,8 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
                     <p>Orbit®</p>
                 </div>
 
-                <div style={{ 
-                    display: 'flex', 
+                <div style={{
+                    display: 'flex',
                     position: 'relative',
                     width: '100%'
                 }}>
@@ -229,9 +256,9 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
                             ))}
                         </div>
                     </div>
-                    
+
                     {(cartItems?.length > 0 || sharedCart) && (
-                        <Cart 
+                        <Cart
                             isOpen={true}
                             onClose={onCartClose}
                             onOrderSuccess={handleOrderSuccess}
@@ -352,13 +379,21 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
             <div className="customer-review-container">
                 <div className="customer-review-header">
                     <h2>Customer Reviews</h2>
-                    <img src="../Back.svg" alt="back" />
-                    <img src="../Back.svg" alt="forward" />
+                    <div className="customer-review-header-buttons">
+                        <img
+                            src="../Back.svg"
+                            alt="back"
+                            onClick={handlePrevReview}
+                        />
+                        <img
+                            src="../Back.svg"
+                            alt="forward"
+                            onClick={handleNextReview}
+                        />
+                    </div>
                 </div>
                 <div className="customer-review-content">
-                    {customerReview()}
-                    {customerReview()}
-                    {customerReview()}
+                    {customerReview(review[currentReviewIndex])}
                 </div>
                 <div className="customer-review-footer">
                     {ratingSection()}

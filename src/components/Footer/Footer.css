@@ -144,3 +144,51 @@
   display: flex;
   gap: 1rem;
 }
+
+@media screen and (max-width: 860px) {
+    .footer {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .sub-1, .sub-2, .sub-3, .sub-4 {
+        flex: 1;
+        align-items: center;
+        margin: 0.5rem;
+    }
+
+    .download-container div {
+      padding: 0 0.3rem;
+    }
+
+    .download-container img {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    .download-container div p:first-child {
+      font-size: 0.8rem;
+    }
+
+    .download-container div p:last-child {
+      font-size: 1rem;
+    }
+
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .copyright {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .socials {
+        justify-content: center;
+    }
+}
