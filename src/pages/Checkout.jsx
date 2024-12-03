@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 import PopularRestaurants from '../components/PopularRestaurants/PopularRestaurants';
 import TopSection from '../components/TopSection/TopSection';
 import Navbar from '../components/Navbar/Navbar';
@@ -16,6 +16,11 @@ const Checkout = () => {
     const [profile, setProfile] = useState(null);
     const handleBack = useBackNavigation();
     const toast = useToast();
+    const location = useLocation();
+
+    if (!user) {
+        return <Navigate to="/" state={{ from: location }} />;
+    }
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -33,10 +38,6 @@ const Checkout = () => {
 
         fetchProfile();
     }, []);
-
-    // if (!user) {
-    //     return <Navigate to="/" state={{ from: location }} />;
-    // }
 
     const navigateToAddress = () => {
         navigate("/address");

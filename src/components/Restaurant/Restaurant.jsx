@@ -1,6 +1,6 @@
 import { getRestaurantById } from "../../api/api";
 import { useState, useEffect } from "react";
-import { fetchImage } from "../../api/api";
+import { fetchImage, searchRestaurant } from "../../api/api";
 import "./Restaurant.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
@@ -24,6 +24,8 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
     const [error, setError] = useState(null);
     const [sharedCart, setSharedCart] = useState(null);
     const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -48,6 +50,33 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
         }
     };
 
+    const handleSearch = async () => {
+        try {
+            const data = await searchRestaurant({restaurantId: id, query: searchTerm});
+            setProducts(data);
+            setError(null);
+        } catch (err) {
+            if (err.response?.status === 404) {
+                setError("Nothing found");
+                setProducts([]);
+            } else {
+                console.error('Error searching products:', err);
+                setError("Error searching products");
+            }
+        }
+    }
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            if (searchTerm) {
+                handleSearch(searchTerm);
+            } else {
+                getRestaurantById(id);
+            }
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
+    }, [searchTerm]);
 
     useEffect(() => {
         fetchData(id);
@@ -174,6 +203,32 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
         )
     }
 
+    const renderSearchResults = () => {
+        if (searchTerm && products.length > 0) {
+            return (
+                <div className="products-item">
+                    <p className="category-name">Search Results</p>
+                    <div className="products-item-products">
+                        {products.map((product, index) => (
+                            <div className="products-item-product" key={product._id || index}>
+                                <div className="product-content">
+                                    <p className="product-name">{product.name}</p>
+                                    <p className="product-description">{product.description}</p>
+                                    <p className="product-price">₹ {product.price}</p>
+                                </div>
+                                <img src={product.image} alt="product" className="product-image" />
+                                <div className="add-button-product" onClick={() => handleAddToCart(product)}>
+                                    <img src="../Plus.svg" alt="plus" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+        return null;
+    };
+
     return (
         <div className="restaurant-container-wrapper">
             <div className="restaurant-container">
@@ -212,8 +267,8 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
             <div className="offers-container">
                 <p>All Offers from {restaurant?.restaurant?.name}</p>
                 <div className="search-container">
-                    <input type="text" placeholder="Search from menu..." />
-                    <button className="search-button">
+                    <input type="text" placeholder="Search from menu..." onChange={(e) => setSearchTerm(e.target.value)} />
+                    <button className="search-button" onClick={handleSearch}>
                         <img src="../Search More.svg" alt="search" />
                     </button>
                 </div>
@@ -271,26 +326,36 @@ const Restaurant = ({ id, isCartOpen, onCartClose }) => {
             </div>
 
             <div className="products-container">
-                {restaurant?.categories?.map((category, index) => (
-                    <div className="products-item" key={category.id || index}>
-                        <p className="category-name">{category?.name}</p>
-                        <div className="products-item-products">
-                            {category?.products?.map((product, index) => (
-                                <div className="products-item-product" key={product.id || index}>
-                                    <div className="product-content">
-                                        <p className="product-name">{product?.name}</p>
-                                        <p className="product-description">{product?.description}</p>
-                                        <p className="product-price">₹ {product?.price}</p>
+                {searchTerm ? (
+                    <>
+                        {error ? (
+                            <div className="error-message">Nothing found</div>
+                        ) : (
+                            renderSearchResults()
+                        )}
+                    </>
+                ) : (
+                    restaurant?.categories?.map((category, index) => (
+                        <div className="products-item" key={category.id || index}>
+                            <p className="category-name">{category?.name}</p>
+                            <div className="products-item-products">
+                                {category?.products?.map((product, index) => (
+                                    <div className="products-item-product" key={product.id || index}>
+                                        <div className="product-content">
+                                            <p className="product-name">{product?.name}</p>
+                                            <p className="product-description">{product?.description}</p>
+                                            <p className="product-price">₹ {product?.price}</p>
+                                        </div>
+                                        <img src={product?.image} alt="product" className="product-image" />
+                                        <div className="add-button-product" onClick={() => handleAddToCart(product)}>
+                                            <img src="../Plus.svg" alt="plus" />
+                                        </div>
                                     </div>
-                                    <img src={product?.image} alt="product" className="product-image" />
-                                    <div className="add-button-product" onClick={() => handleAddToCart(product)}>
-                                        <img src="../Plus.svg" alt="plus" />
-                                    </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                )}
             </div>
 
             <div className="restaurant-operation-container">
