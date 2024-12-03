@@ -206,3 +206,12 @@ export const removeItemFromCart = async ({cartId, productId}) => {
         console.log(error, "error");
     }
 }
+
+export const searchRestaurant = async ({restaurantId, query}) => {
+    try{
+        const response = await axios.get(`${baseURL}/restaurant/search/${restaurantId}?query=${query}`);
+        return response.data;
+    } catch (error) {
+        console.log(error, "error");
+    }
+}
