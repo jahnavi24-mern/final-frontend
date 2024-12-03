@@ -23,6 +23,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<ProtectedRoot />} />
                 <Route path="/home" element={<Home />} />
+                <Route path="/product" element={<Product />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/checkout" element={<div className="checkout-route"><Checkout /></div>} />

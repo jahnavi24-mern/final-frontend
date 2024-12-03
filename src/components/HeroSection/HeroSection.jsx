@@ -73,7 +73,7 @@ const HeroSection = () => {
                     <div className="code-container">
                         <input placeholder="e.g. EC4R 3TE" />
                         <button>
-                            <p>Search</p>
+                            Search
                             <img src="../Forward Button.svg" alt="forward" />
                             </button>
                     </div>

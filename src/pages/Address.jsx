@@ -67,20 +67,18 @@ const Address = () => {
                     </div>
 
                     {user?.user?.addresses?.map((address) => (
-                        <>
-                            <div className="address-content-item" key={address._id}>
-                                <p className="address-content-item-name">{address.name}</p>
-                                <p className="address-content-item-address">{address.fullAddress}</p>
+                        <div className="address-content-item" key={address._id}>
+                            <p className="address-content-item-name">{address.name}</p>
+                            <p className="address-content-item-address">{address.fullAddress}</p>
 
-                                <p className="address-content-item-phone">Phone Number: {address.phoneNumber}</p>
+                            <p className="address-content-item-phone">Phone Number: {address.phoneNumber}</p>
 
-                                <div className="address-content-item-edit">
-                                    <p onClick={() => setShowAddressModal(true)}>Edit</p>
-                                    <p>|</p>
-                                    <p onClick={() => removeAddress(address._id)}>Delete</p>
-                                </div>
+                            <div className="address-content-item-edit">
+                                <p onClick={() => setShowAddressModal(true)}>Edit</p>
+                                <p>|</p>
+                                <p onClick={() => removeAddress(address._id)}>Delete</p>
                             </div>
-                        </>
+                        </div>
                     ))}
 
                 </div>

@@ -9,6 +9,16 @@ const Product = () => {
     const { id } = useParams();
     const [isCartOpen, setIsCartOpen] = useState(false);
 
+    if(!id) {
+        return (
+            <div>
+                <TopSection onCartClick={() => setIsCartOpen(true)} />
+                <Navbar />
+                <PopularRestaurants />
+            </div>
+        )
+    }
+
     return (
         <div>
             <TopSection onCartClick={() => setIsCartOpen(true)} />

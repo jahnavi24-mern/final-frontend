@@ -81,7 +81,7 @@ export const editProfile = async ({fullName, phoneNumber, email, gender, country
 
 export const addPaymentMethod = async ({cardNumber, expiryDate, cvv, nameOnCard}) => {
     try{
-        const response = await axios.post(`${baseURL}/auth/add-payment-method`, {cardNumber, expiryDate, cvv, nameOnCard}, {
+        const response = await axios.post(`${baseURL}/card/add-payment-method`, {cardNumber, expiryDate, cvv, nameOnCard}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -95,7 +95,7 @@ export const addPaymentMethod = async ({cardNumber, expiryDate, cvv, nameOnCard}
 
 export const editPaymentMethod = async ({cardNumber, expiryDate, cvv, nameOnCard}) => {
     try{
-        const response = await axios.post(`${baseURL}/auth/edit-payment-method`, {cardNumber, expiryDate, cvv, nameOnCard}, {
+        const response = await axios.post(`${baseURL}/card/edit-payment-method`, {cardNumber, expiryDate, cvv, nameOnCard}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -109,7 +109,7 @@ export const editPaymentMethod = async ({cardNumber, expiryDate, cvv, nameOnCard
 export const removePaymentMethod = async (cardId) => {
     try{
         const response = await axios.post(
-            `${baseURL}/auth/remove-payment-method/?cardId=${cardId}`, 
+            `${baseURL}/card/remove-payment-method/?cardId=${cardId}`, 
             {}, 
             {
                 headers: {
@@ -125,7 +125,7 @@ export const removePaymentMethod = async (cardId) => {
 
 export const addAddress = async ({name, phoneNumber, state, city, address, postcode}) => {
     try{
-        const response = await axios.post(`${baseURL}/auth/add-address`, {name, phoneNumber, state, city, address, postcode}, {
+        const response = await axios.post(`${baseURL}/address/add-address`, {name, phoneNumber, state, city, address, postcode}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -138,7 +138,7 @@ export const addAddress = async ({name, phoneNumber, state, city, address, postc
 
 export const editAddress = async ({name, phoneNumber, state, city, address, postcode}) => {
     try{
-        const response = await axios.post(`${baseURL}/auth/edit-address`, {name, phoneNumber, state, city, address, postcode}, {
+        const response = await axios.post(`${baseURL}/address/edit-address`, {name, phoneNumber, state, city, address, postcode}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`
             }
@@ -151,7 +151,7 @@ export const editAddress = async ({name, phoneNumber, state, city, address, post
 
 export const removeAddress = async (addressId) => {
     try{
-        const response = await axios.post(`${baseURL}/auth/remove-address/?addressId=${addressId}`, {}, {
+        const response = await axios.post(`${baseURL}/address/remove-address/?addressId=${addressId}`, {}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('authToken')}`
             }

@@ -18,6 +18,7 @@
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+    align-items: center;
 }
 
 .hero-text h1 {
@@ -42,10 +43,13 @@
     width: 10rem;
     color: #fff;
     border: none;
-    padding: 1rem ;
+    padding: 1rem;
     border-radius: 2rem;
     font-size: 1rem;
     border: 1px solid #FC8A06;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .code-container input {
